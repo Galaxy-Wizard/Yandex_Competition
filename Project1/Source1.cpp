@@ -5,8 +5,6 @@
 #include <map>
 #include <set>
 
-#include <limits>
-
 int main()
 {
 	bool input_error = false;
@@ -25,6 +23,8 @@ int main()
 	int current_number = 0;
 	int radix = 10;
 
+	bool number_started = false;
+
 	for (size_t counter = 0; counter < input_array.size(); counter++)
 	{
 		if (input_array[counter] == '[')
@@ -37,31 +37,40 @@ int main()
 
 			negative = false;
 			current_number = 0;
+
+			number_started = false;
 		}
 		else if (input_array[counter] == '-')
 		{
 			negative = true;
+
+			number_started = true;
 		}
 		else if (input_array[counter] == ',' || input_array[counter] == ']')
 		{
-			if (negative)
+			if (number_started)
 			{
-				current_number = -current_number;
-			}
+				if (negative)
+				{
+					current_number = -current_number;
+				}
 
-			source_list.push_back(current_number);
+				source_list.push_back(current_number);
+			}
 
 			negative = false;
 			current_number = 0;
+
+			number_started = false;
 		}
 		else if (input_array[counter] == ' ')
 		{
-
+			number_started = false;
 		}
 		else
 		{
 			char digit = input_array[counter];
-			int current_digit = 0;
+			int current_digit = -10;
 
 			switch (digit)
 			{
@@ -111,6 +120,8 @@ int main()
 				break;
 			}
 
+			number_started = true;
+
 			current_number *= radix;
 			current_number += current_digit;
 		}
@@ -137,15 +148,15 @@ int main()
 				if (current_number == *i)
 				{
 					counter++;
-				}
-				else
-				{
-					result_map.insert(std::make_pair(counter, current_number));
 
 					if (counter > maximum_counter)
 					{
 						maximum_counter = counter;
 					}
+				}
+				else
+				{
+					result_map.insert(std::make_pair(counter, current_number));					
 
 					counter = 1;
 					current_number = *i;
@@ -184,6 +195,8 @@ int main()
 		{
 			std::cout << *i << ' ';
 		}
+
+		std::cout << std::endl;
 	}
 
 	if (input_error)
