@@ -5,12 +5,53 @@
 #include <map>
 #include <set>
 
+/*/    Tree Template (start)    /*/
+
+namespace galaxy
+{
+
+	template<class T>
+	class galaxy_tree
+	{
+	public:
+		galaxy_tree();
+		std::list<galaxy_tree>& get_childs();
+		void set_data(T& p);
+	protected:
+		std::list<galaxy_tree> childs;
+	private:
+		T data;
+	};
+
+	template<class T>
+	galaxy_tree<T>::galaxy_tree()
+		: data(T())
+	{
+	}
+
+	template<class T>
+	std::list<galaxy_tree<T>>& galaxy_tree<T>::get_childs()
+	{
+		return childs;
+	}
+
+	template<class T>
+	void galaxy_tree<T>::set_data(T& p)
+	{
+		data = p;
+	}
+
+};
+
+/*/    Tree Template (finish)    /*/
+
 int main()
 {
 	bool input_error = false;
 
 	std::string input_array;
 
+	galaxy::galaxy_tree<int> input_sequence;
 
 	std::cout << "Enter array:" << std::endl;
 
