@@ -17,15 +17,19 @@ namespace galaxy
 		galaxy_tree();
 		std::list<galaxy_tree>& get_childs();
 		void set_data(T& p);
+		T get_data();
+		void set_leaf(bool p);
+		bool get_leaf();
 	protected:
 		std::list<galaxy_tree> childs;
 	private:
+		bool leaf;
 		T data;
 	};
 
 	template<class T>
 	galaxy_tree<T>::galaxy_tree()
-		: data(T())
+		: data(T()), leaf(true)
 	{
 	}
 
@@ -41,6 +45,23 @@ namespace galaxy
 		data = p;
 	}
 
+	template<class T>
+	T galaxy_tree<T>::get_data()
+	{
+		return data;
+	}
+
+	template<class T>
+	void galaxy_tree<T>::set_leaf(bool p)
+	{
+		leaf = p;
+	}
+
+	template<class T>
+	bool galaxy_tree<T>::get_leaf()
+	{
+		return leaf;
+	}
 };
 
 /*/    Tree Template (finish)    /*/
