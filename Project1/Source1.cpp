@@ -205,6 +205,7 @@ int main()
 
 	int maximum_counter = 1;
 
+	if (source_list.size()>0)
 	{
 		auto i = source_list.begin();
 		int current_number = *i;
